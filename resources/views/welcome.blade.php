@@ -84,8 +84,8 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://forge.laravel.com" class="btn white-text indigo wave-effect"><i class="material-icons right">add</i>Ajouter une séance</a>
-                    <a href="https://github.com/laravel/laravel" class="btn white-text indigo wave-effect"><i class="material-icons right">edit</i>Consulter les séances</a>
+                    <a href="#" class="btn white-text indigo wave-effect"><i class="material-icons right">add</i>Ajouter une séance</a>
+                    <a href="#" class="btn white-text indigo wave-effect"><i class="material-icons right">edit</i>Consulter les séances</a>
                 </div>
             </div>
         </div>
