@@ -162,6 +162,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         Skydiver\LaravelMaterializeCSS\MaterializeCSSServiceProvider::class,
 
+        Collective\Html\HtmlServiceProvider::class,
+        Reliese\Coders\CodersServiceProvider::class,
+
 
     ],
 
@@ -212,7 +215,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'MaterializeCSS' => Skydiver\LaravelMaterializeCSS\MaterializeCSS::class,
-
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
 
     ],
 
