@@ -155,11 +155,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        APICinema\Providers\AppServiceProvider::class,
+        APICinema\Providers\AuthServiceProvider::class,
+        // APICinema\Providers\BroadcastServiceProvider::class,
+        APICinema\Providers\EventServiceProvider::class,
+        APICinema\Providers\RouteServiceProvider::class,
         Skydiver\LaravelMaterializeCSS\MaterializeCSSServiceProvider::class,
 
         Collective\Html\HtmlServiceProvider::class,

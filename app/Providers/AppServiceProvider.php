@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace APICinema\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
