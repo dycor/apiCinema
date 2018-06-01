@@ -22,7 +22,6 @@ class CreateRealisateurTable extends Migration
             $table->string('biography');
             $table->timestamps();
 
-            $table->foreign('author')->references('id')->on('users');
         });
     }
 
