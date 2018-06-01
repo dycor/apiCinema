@@ -21,6 +21,7 @@ class CreateFilmTable extends Migration
             $table->longText('synopsis');
             $table->integer('director')->unsigned();
             $table->timestamps();
+            
 
             $table->foreign('director')->references('id')->on('director');
         });
