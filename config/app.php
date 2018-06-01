@@ -146,6 +146,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Skydiver\LaravelMaterializeCSS\MaterializeCSSServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -154,11 +155,16 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        APICinema\Providers\AppServiceProvider::class,
+        APICinema\Providers\AuthServiceProvider::class,
+        // APICinema\Providers\BroadcastServiceProvider::class,
+        APICinema\Providers\EventServiceProvider::class,
+        APICinema\Providers\RouteServiceProvider::class,
+        Skydiver\LaravelMaterializeCSS\MaterializeCSSServiceProvider::class,
+
+        Collective\Html\HtmlServiceProvider::class,
+        Reliese\Coders\CodersServiceProvider::class,
+
 
     ],
 
@@ -208,6 +214,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'MaterializeCSS' => Skydiver\LaravelMaterializeCSS\MaterializeCSS::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
 
     ],
 
