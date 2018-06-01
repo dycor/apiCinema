@@ -22,6 +22,7 @@ class CreateFilmTable extends Migration
             $table->integer('director')->unsigned();
             $table->timestamps();
 
+            
             $table->foreign('director')->references('id')->on('director');
         });
     }
