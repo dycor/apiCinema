@@ -22,4 +22,24 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::redirect('/home','/error','404');
 
 
-//
+//Retourner le formulaire de création du film
+Route::get('/films/create', function () {
+    return view('form-film'); //appel d'un helper dédié aux vues
+});
+
+//Vue pour y retourner le tableau des films
+Route::get('/films', function () {
+    return view('list-film'); //appel d'un helper dédié aux vues
+});
+
+
+//Vue pour les infos d'un film
+Route::get('/film', function () {
+    return view('single-film'); //appel d'un helper dédié aux vues
+});
+
+
+//Vue pour les infos d'un film
+Route::get('/films/update', function () {
+    return view('update-film'); //appel d'un helper dédié aux vues
+});
