@@ -20,7 +20,7 @@ class FilmController extends Controller
     public function search(Request $filter)
     {
         //http://cinema.test/api/films/1?name=test&genre=test&acteur=test&director=test&cinema=test
-        $film = (new Film)->newQuery();
+        /*$film = (new Film)->newQuery();
 
         if ($filters->has('name')) {
             $film->where('name', $filters->input('name'));
@@ -35,7 +35,8 @@ class FilmController extends Controller
             $film->where('director', $filters->input('director'));
         }
 
-        return $film->get();
+        return $film->get();*/
+        dd(Film::all()) ;
 
         //        return new FilmResource::collection(Film::all());
     }
