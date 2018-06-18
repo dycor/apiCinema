@@ -5,7 +5,7 @@
  * Date: Sat, 16 Jun 2018 20:19:59 +0000.
  */
 
-namespace App\Models;
+namespace APICinema;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -31,6 +31,6 @@ class Language extends Eloquent
 
 	public function showings()
 	{
-		return $this->hasMany(\App\Models\Showing::class, 'language_showing');
+		return $this->hasMany(\APICinema\Showing::class, 'language_showing');
 	}
 }

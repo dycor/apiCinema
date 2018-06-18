@@ -10,27 +10,29 @@ namespace App\Models;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class Language
+ * Class User
  * 
  * @property int $id
- * @property string $languageName
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property string $remember_token
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
- * @property \Illuminate\Database\Eloquent\Collection $showings
  *
  * @package App\Models
  */
-class Language extends Eloquent
+class User extends Eloquent
 {
-	protected $table = 'language';
-
-	protected $fillable = [
-		'languageName'
+	protected $hidden = [
+		'password',
+		'remember_token'
 	];
 
-	public function showings()
-	{
-		return $this->hasMany(\App\Models\Showing::class, 'language_showing');
-	}
+	protected $fillable = [
+		'name',
+		'email',
+		'password',
+		'remember_token'
+	];
 }

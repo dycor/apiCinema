@@ -3,7 +3,12 @@
 namespace APICinema\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Film;
+use APICinema\Http\Resources\Film as FilmResource;
+use APICinema\Http\Resources\Director as DirectorResource;
+//use \App\Models\Film;
+//use App\Models\Film;
+//use App\Models\Film;
+use APICinema\Film;
 
 class FilmController extends Controller
 {
@@ -12,9 +17,27 @@ class FilmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function search(Request $filter)
     {
-        //
+        //http://cinema.test/api/films/1?name=test&genre=test&acteur=test&director=test&cinema=test
+        $film = (new Film)->newQuery();
+
+        if ($filters->has('name')) {
+            $film->where('name', $filters->input('name'));
+        }
+        if ($filters->has('genre')) {
+            $film->where('genre', $filters->input('genre'));
+        }
+        if ($filters->has('acteur')) {
+            $film->where('acteur', $filters->input('acteur'));
+        }
+        if ($filters->has('director')) {
+            $film->where('director', $filters->input('director'));
+        }
+
+        return $film->get();
+
+        //        return new FilmResource::collection(Film::all());
     }
 
     /**
@@ -44,9 +67,16 @@ class FilmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
-        dd(Film::findOrFail($id));
+        $film = Film::findOrFail($id);
+//        $director = $film->director()->first();
+//        $film->director  = new DirectorResource($director);
+//        $film->director = new DirectorResource();
+
+        return new FilmResource($film);
+//        dd($film);
+//        return $film;
     }
 
     /**

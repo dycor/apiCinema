@@ -5,12 +5,12 @@
  * Date: Sat, 16 Jun 2018 20:19:59 +0000.
  */
 
-namespace App\Models;
+namespace APICinema;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class Actor
+ * Class Director
  * 
  * @property int $id
  * @property string $firstname
@@ -25,9 +25,9 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Actor extends Eloquent
+class Director extends Eloquent
 {
-	protected $table = 'actor';
+	protected $table = 'director';
 
 	protected $dates = [
 		'birthdate'
@@ -43,8 +43,6 @@ class Actor extends Eloquent
 
 	public function films()
 	{
-		return $this->belongsToMany(\App\Models\Film::class, 'film_actor', 'actor', 'film')
-					->withPivot('id')
-					->withTimestamps();
+		return $this->hasMany(\APICinema\Film::class, 'director');
 	}
 }

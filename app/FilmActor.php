@@ -5,7 +5,7 @@
  * Date: Sat, 16 Jun 2018 20:19:59 +0000.
  */
 
-namespace App\Models;
+namespace APICinema;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -37,11 +37,11 @@ class FilmActor extends Eloquent
 
 	public function actor()
 	{
-		return $this->belongsTo(\App\Models\Actor::class, 'actor');
+		return $this->belongsTo(\APICinema\Actor::class, 'actor');
 	}
 
 	public function film()
 	{
-		return $this->belongsTo(\App\Models\Film::class, 'film');
+		return $this->belongsTo(\APICinema\Film::class, 'film');
 	}
 }

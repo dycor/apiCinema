@@ -5,7 +5,7 @@
  * Date: Sat, 16 Jun 2018 20:19:59 +0000.
  */
 
-namespace App\Models;
+namespace APICinema;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -31,7 +31,7 @@ class Category extends Eloquent
 
 	public function films()
 	{
-		return $this->belongsToMany(\App\Models\Film::class, 'category_film', 'category', 'film')
+		return $this->belongsToMany(\APICinema\Film::class, 'category_film', 'category', 'film')
 					->withPivot('id', 'category_film_name')
 					->withTimestamps();
 	}
