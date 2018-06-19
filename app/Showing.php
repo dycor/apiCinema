@@ -5,7 +5,7 @@
  * Date: Sat, 16 Jun 2018 20:19:59 +0000.
  */
 
-namespace App\Models;
+namespace APICinema;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -47,11 +47,11 @@ class Showing extends Eloquent
 
 	public function cinema()
 	{
-		return $this->belongsTo(\App\Models\Cinema::class, 'cinema');
+		return $this->belongsTo(\APICinema\Cinema::class, 'cinema');
 	}
 
 	public function language()
 	{
-		return $this->belongsTo(\App\Models\Language::class, 'language_showing');
+		return $this->belongsTo(\APICinema\Language::class, 'language_showing');
 	}
 }

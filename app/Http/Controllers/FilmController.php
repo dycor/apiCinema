@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+<<<<<<< HEAD
+=======
+use APICinema\Http\Resources\Film as FilmResource;
+>>>>>>> ccee1e89af5e290e0888d4fd1462d74d0b2a9266
 use APICinema\Film;
 
 class FilmController extends Controller
@@ -12,9 +16,52 @@ class FilmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function search(Request $filters)
     {
-        //
+        $films = (new Film)->newQuery();
+
+        if ($filters->has('title')) {
+            $films->where('title', 'LIKE','%'.$filters->input('title').'%');
+        }
+
+        if ($filters->has('director')) {
+            $films->where('director', $filters->input('director'));
+        }
+
+        if ($filters->has('releaseDate')) {
+            $films->where('releaseDate', $filters->input('releaseDate'));
+        }
+
+        if ($filters->has('category')) {
+            $films->join('category_film', 'film.id', '=', 'category_film.film');
+            $films->join('category', 'category.id', '=', 'category_film.category');
+            $films->where('categoryName', $filters->input('category'));
+        }
+
+        if ($filters->has('actorFirstname')) {
+            var_dump('hello');
+            $films->join('film_actor', 'film.id', '=', 'film_actor.film');
+            $films->join('actor', 'actor.id', '=', 'film_actor.actor');
+            $films->where('firstname', 'LIKE','%'.$filters->input('actorFirstname').'%');
+        }
+
+        if ($filters->has('actorLastname')) {
+            $films->join('film_actor', 'film.id', '=', 'film_actor.film');
+            $films->join('actor', 'actor.id', '=', 'film_actor.actor');
+            $films->where('lastname', 'LIKE','%'.$filters->input('actorLastname').'%');
+        }
+
+        if ($filters->has('directorLastname')) {
+            $films->join('director', 'director.id', '=', 'film.director');
+            $films->where('lastname', 'LIKE','%'.$filters->input('directorLastname').'%');
+        }
+        if ($filters->has('directorFirstname')) {
+            $films->join('director', 'director.id', '=', 'film.director');
+            $films->where('firstname', 'LIKE','%'.$filters->input('directorFirstname').'%');
+        }
+
+        return FilmResource::collection($films->distinct()->get()) ;
+
     }
 
     /**
@@ -53,7 +100,8 @@ class FilmController extends Controller
      */
     public function show($id)
     {
-        dd(Film::findOrFail($id));
+        $film = Film::find($id) ;
+        return new FilmResource($film);
     }
 
     /**

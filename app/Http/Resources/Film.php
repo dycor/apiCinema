@@ -19,8 +19,8 @@ class Film extends JsonResource
 		'title' => $this->title,
 		'releaseDate' => $this->releaseDate,
 		'synopsis' => $this->synopsis,
-		'director' => $this->director
-		'created_at' => $this->created_at
+		'director' => $this->director,
+		'created_at' => $this->created_at,
 		'updated_at' => $this->updated_at
 	
 	];

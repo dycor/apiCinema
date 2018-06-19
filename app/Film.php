@@ -2,10 +2,12 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 16 Jun 2018 20:19:59 +0000.
+ * Date: Sun, 10 Jun 2018 12:45:15 +0000.
  */
 
-namespace App\Models;
+// namespace App\Models;
+namespace APICinema;
+
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -49,19 +51,19 @@ class Film extends Eloquent
 
 	public function director()
 	{
-		return $this->belongsTo(\App\Models\Director::class, 'director');
+		return $this->belongsTo(\APICinema\Director::class, 'director');
 	}
 
 	public function categories()
 	{
-		return $this->belongsToMany(\App\Models\Category::class, 'category_film', 'film', 'category')
+		return $this->belongsToMany(\APICinema\Category::class, 'category_film', 'film', 'category')
 					->withPivot('id', 'category_film_name')
 					->withTimestamps();
 	}
 
 	public function actors()
 	{
-		return $this->belongsToMany(\App\Models\Actor::class, 'film_actor', 'film', 'actor')
+		return $this->belongsToMany(\APICinema\Actor::class, 'film_actor', 'film', 'actor')
 					->withPivot('id')
 					->withTimestamps();
 	}
