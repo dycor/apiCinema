@@ -12,7 +12,7 @@ class ActorFilmsTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 1; $i <= 50; $i++) {
             $filmActor = new FilmActor;
             $filmActor->film = rand(1,6);
             $filmActor->actor = $i;

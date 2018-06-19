@@ -13,12 +13,12 @@ class ActorsTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $actor = new Actor;
             $actor->lastName = $faker->lastName;
             $actor->firstName = $faker->firstName;
             $actor->nationality = 'Américain';
-            $actor->biography = $faker->paragraph($nbSentences = 3, $variableNbSentences = true);
+            $actor->biography = $faker->paragraph($nbSentences = 2, $variableNbSentences = true);
             $actor->birthdate = $faker->dateTimeThisCentury->format('Y-m-d');
             $actor->save();
         }
