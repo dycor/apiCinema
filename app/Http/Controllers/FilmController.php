@@ -17,28 +17,35 @@ class FilmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $filter)
+    public function search(Request $filters)
     {
-        //http://cinema.test/api/films/1?name=test&genre=test&acteur=test&director=test&cinema=test
-        /*$film = (new Film)->newQuery();
+//        dd($filter);
+        //http://cinema.test/api/films/1?title=test&category=test&acteur=test&director=test&cinema=test
+        $films = (new Film)->newQuery();
 
-        if ($filters->has('name')) {
-            $film->where('name', $filters->input('name'));
+//Affiche les films d'un acteur ( paramètres issu des inputs par la méthode GET)
+//Affiche les films d'un réalisateur ( paramètres issu des inputs par la méthode GET)
+
+        if ($filters->has('title')) {
+            $films->where('title', 'LIKE','%'.$filters->input('title').'%');
         }
-        if ($filters->has('genre')) {
-            $film->where('genre', $filters->input('genre'));
-        }
-        if ($filters->has('acteur')) {
-            $film->where('acteur', $filters->input('acteur'));
-        }
+
         if ($filters->has('director')) {
-            $film->where('director', $filters->input('director'));
+            $films->where('director', $filters->input('director'));
         }
 
-        return $film->get();*/
-        dd(Film::all()) ;
+        if ($filters->has('releaseDate')) {
+            $films->where('releaseDate', $filters->input('releaseDate'));
+        }
 
-        //        return new FilmResource::collection(Film::all());
+        if ($filters->has('category')) {
+            $films->join('category_film', 'film.id', '=', 'category_film.film');
+            $films->join('category', 'category.id', '=', 'category_film.category');
+            $films->where('categoryName', $filters->input('category'));
+        }
+
+        return FilmResource::collection($films->get()) ;
+
     }
 
     /**
