@@ -1,9 +1,9 @@
 <?php
 
-namespace APICinema\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Film;
+use APICinema\Film;
 
 class FilmController extends Controller
 {
@@ -22,9 +22,16 @@ class FilmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $film = new Film;
+        $film->title = $request->title;
+        $film->releaseDate = $request->releaseDate;
+        $film->duration = $request->duration;
+        $film->synopsis = $request->synopsis;
+        $film->director = $request->director;
+
+        return redirect()->route('home');
     }
 
     /**
@@ -55,9 +62,22 @@ class FilmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, Film $film)
     {
-        //
+
+        $filmUpdate = Film::where('id', $film->id)
+            ->update([
+                'title'=>$request->input('title'),
+                'releaseDate'=>$request->input('releaseDate'),
+                'duration'=>$request->input('duration'),
+                'synopsis'=>$request->input('synopsis'),
+                'director'=>$request->input('director')
+            ]);
+
+        if ($filmUpdate){
+            return redirect()->route('home');
+        }
+        return back()->withInput();
     }
 
     /**

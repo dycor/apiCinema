@@ -24,8 +24,11 @@ Route::redirect('/home','/error','404');
 
 //Retourner le formulaire de création du film
 Route::get('/films/create', function () {
-    return view('form-film'); //appel d'un helper dédié aux vues
+    return view('forms.filmAdd'); //appel d'un helper dédié aux vues
 });
+
+//Renvoie vers le traitement de création de film
+Route::post('create', 'Film@create')->name('create');
 
 //Vue pour y retourner le tableau des films
 Route::get('/films', function () {
