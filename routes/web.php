@@ -34,9 +34,7 @@ Route::get('/films', function () {
 
 
 //Vue pour les infos d'un film
-Route::get('/film', function () {
-    return view('single-film'); //appel d'un helper dédié aux vues
-});
+Route::get('/showing','ShowingController@read')->name('single');
 
 
 //Vue pour les infos d'un film

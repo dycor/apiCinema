@@ -5,7 +5,7 @@
  * Date: Sat, 16 Jun 2018 20:19:59 +0000.
  */
 
-namespace App\Models;
+namespace APICinema;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -39,11 +39,11 @@ class CategoryFilm extends Eloquent
 
 	public function category()
 	{
-		return $this->belongsTo(\App\Models\Category::class, 'category');
+		return $this->belongsTo(\APICinema\Category::class, 'category');
 	}
 
 	public function film()
 	{
-		return $this->belongsTo(\App\Models\Film::class, 'film');
+		return $this->belongsTo(\APICinema\Film::class, 'film');
 	}
 }

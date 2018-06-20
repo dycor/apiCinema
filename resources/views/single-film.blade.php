@@ -1,15 +1,12 @@
-@extends('layout')
 @section('title')
   Séance d'un film
 @endsection
+LLLL
+<div class="title m-b-md">Un film<br><br></div>
+<?php
 
-@section('content')
-      <div class="title m-b-md">Un film<br><br></div>
+ ?>
+@foreach($showings as $showing)
 
-                <br><br>
-                <ul>
-                  @foreach($showings as $showing)
-                    {{ $showing->language_showing }}
-                  @endforeach
-                </ul>
-@endsection
+  echo {{$showing->language_showing }}
+@endforeach
