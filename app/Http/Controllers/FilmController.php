@@ -4,6 +4,11 @@ namespace APICinema\Http\Controllers;
 
 use Illuminate\Http\Request;
 use APICinema\Http\Resources\Film as FilmResource;
+<<<<<<< HEAD
+use APICinema\Http\Resources\Director as DirectorResource;
+
+=======
+>>>>>>> ccee1e89af5e290e0888d4fd1462d74d0b2a9266
 use APICinema\Film;
 
 class FilmController extends Controller
