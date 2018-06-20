@@ -34,6 +34,7 @@ Route::get('/showings/readLanguage/{language?}','ShowingController@readByLanguag
 Route::get('/showings/readCinema/{date?}','ShowingController@readByCinema')->name('showingByCinema');
 
 
+
 //Actors routes
 Route::get('/actors/{id}','FilmController@show')->name('actorBydId');
 Route::get('/actors','FilmController@search')->name('actors');

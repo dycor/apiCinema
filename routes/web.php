@@ -34,7 +34,7 @@ Route::get('/films', function () {
 
 
 //Vue pour les infos d'un film
-Route::get('/showing','ShowingController@read')->name('single');
+Route::get('/showing/{idUri?}','ShowingController@read')->name('single');
 
 
 //Vue pour les infos d'un film

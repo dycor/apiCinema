@@ -2,24 +2,34 @@
 
 namespace APICinema\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 
 use APICinema\Showing;
 
 class ShowingController extends Controller
 {
 
+    public function readByDate($date){
+       $showings = DB::table('showing')
+            ->join('cinema', 'showing.id', '=', 'showing.cinema')
+            ->join('language', 'showing.language_showing', '=', 'language.id')
+            ->join('film', 'showing.film', '=', 'film.id')
+            ->select('showing.*', 'cinema.*', 'language.*','film.*')
+            ->where('showing.schedule', $date)->get();
+
+        return view('single-film',['showings'=> $showings]);
+    }
+
     public function read(){
-      //Afficher
-     //  $showings = Showing::all();
-       $showings =   DB::table('showing')
+        $showings = DB::table('showing')
             ->join('cinema', 'showing.id', '=', 'showing.cinema')
             ->join('language', 'showing.language_showing', '=', 'language.id')
             ->join('film', 'showing.film', '=', 'film.id')
             ->select('showing.*', 'cinema.*', 'language.*','film.*')
             ->get();
 
-
-      return view('single-film',['showings'=> $showings]);
+        return view('single-film',['showings'=> $showings]);
     }
 
     //Pour insérer une séance

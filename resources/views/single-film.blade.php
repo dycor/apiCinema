@@ -1,12 +1,18 @@
 @section('title')
   Séance d'un film
 @endsection
-LLLL
-<div class="title m-b-md">Un film<br><br></div>
-<?php
+<div class="title m-b-md">Les séances de vos films<br><br></div>
 
- ?>
 @foreach($showings as $showing)
 
-  echo {{$showing->title }}
+  {{$showing->title}}
+  <br>
+  {{$showing->languageName}}
+  <br>
+   {{$showing->schedule}}
+  <br>
+   {{$showing->day}}
+  <br>
+   {{$showing->cinemaName}}
+
 @endforeach
