@@ -101,7 +101,16 @@ class FilmController extends Controller
     public function show($id)
     {
         $film = Film::find($id) ;
+
+        //        dd($film);
+//        $film = Film::findOrFail($id);
+//        $director = $film->director()->first();
+//        $film->director  = new DirectorResource($director);
+//        $film->director = new DirectorResource();
+
         return new FilmResource($film);
+//        dd($film);
+//        return $film;
     }
 
     /**
