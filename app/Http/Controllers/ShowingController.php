@@ -9,7 +9,16 @@ class ShowingController extends Controller
 {
 
     public function read(){
-      $showings = Showing::all();
+      //Afficher
+     //  $showings = Showing::all();
+       $showings =   DB::table('showing')
+            ->join('cinema', 'showing.id', '=', 'showing.cinema')
+            ->join('language', 'showing.language_showing', '=', 'language.id')
+            ->join('film', 'showing.film', '=', 'film.id')
+            ->select('showing.*', 'cinema.*', 'language.*','film.*')
+            ->get();
+
+
       return view('single-film',['showings'=> $showings]);
     }
 

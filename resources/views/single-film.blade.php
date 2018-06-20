@@ -8,5 +8,5 @@ LLLL
  ?>
 @foreach($showings as $showing)
 
-  echo {{$showing->language_showing }}
+  echo {{$showing->title }}
 @endforeach
