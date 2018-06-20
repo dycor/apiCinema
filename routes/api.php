@@ -27,12 +27,12 @@ Route::get('/showings/{id}','FilmController@show')->name('showingBydId');
 Route::get('/showings','FilmController@search')->name('showings');
 
 //Actors routes
-Route::get('/actors/{id}','FilmController@show')->name('actorBydId');
-Route::get('/actors','FilmController@search')->name('actors');
+Route::get('/actors/{id}','ActorController@show')->name('actorBydId');
+Route::get('/actors','ActorController@search')->name('actors');
 
 //Directors routes
-Route::get('/directors/{id}','FilmController@show')->name('directorById');
-Route::get('/directors','FilmController@search')->name('directors');
+Route::get('/directors/{id}','DirectorController@show')->name('directorById');
+Route::get('/directors','DirectorController@search')->name('directors');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
