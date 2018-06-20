@@ -4,8 +4,11 @@ namespace APICinema\Http\Controllers;
 
 use Illuminate\Http\Request;
 use APICinema\Http\Resources\Film as FilmResource;
+<<<<<<< HEAD
 use APICinema\Http\Resources\Director as DirectorResource;
 
+=======
+>>>>>>> ccee1e89af5e290e0888d4fd1462d74d0b2a9266
 use APICinema\Film;
 
 class FilmController extends Controller
@@ -15,27 +18,52 @@ class FilmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $filter)
+    public function search(Request $filters)
     {
-        //http://cinema.test/api/films/1?name=test&genre=test&acteur=test&director=test&cinema=test
-        $film = (new Film)->newQuery();
+        $films = (new Film)->newQuery();
 
-        if ($filters->has('name')) {
-            $film->where('name', $filters->input('name'));
+        if ($filters->has('title')) {
+            $films->where('title', 'LIKE','%'.$filters->input('title').'%');
         }
-        if ($filters->has('genre')) {
-            $film->where('genre', $filters->input('genre'));
-        }
-        if ($filters->has('acteur')) {
-            $film->where('acteur', $filters->input('acteur'));
-        }
+
         if ($filters->has('director')) {
-            $film->where('director', $filters->input('director'));
+            $films->where('director', $filters->input('director'));
         }
 
-        return $film->get();
+        if ($filters->has('releaseDate')) {
+            $films->where('releaseDate', $filters->input('releaseDate'));
+        }
 
-        //        return new FilmResource::collection(Film::all());
+        if ($filters->has('category')) {
+            $films->join('category_film', 'film.id', '=', 'category_film.film');
+            $films->join('category', 'category.id', '=', 'category_film.category');
+            $films->where('categoryName', $filters->input('category'));
+        }
+
+        if ($filters->has('actorFirstname')) {
+            var_dump('hello');
+            $films->join('film_actor', 'film.id', '=', 'film_actor.film');
+            $films->join('actor', 'actor.id', '=', 'film_actor.actor');
+            $films->where('firstname', 'LIKE','%'.$filters->input('actorFirstname').'%');
+        }
+
+        if ($filters->has('actorLastname')) {
+            $films->join('film_actor', 'film.id', '=', 'film_actor.film');
+            $films->join('actor', 'actor.id', '=', 'film_actor.actor');
+            $films->where('lastname', 'LIKE','%'.$filters->input('actorLastname').'%');
+        }
+
+        if ($filters->has('directorLastname')) {
+            $films->join('director', 'director.id', '=', 'film.director');
+            $films->where('lastname', 'LIKE','%'.$filters->input('directorLastname').'%');
+        }
+        if ($filters->has('directorFirstname')) {
+            $films->join('director', 'director.id', '=', 'film.director');
+            $films->where('firstname', 'LIKE','%'.$filters->input('directorFirstname').'%');
+        }
+
+        return FilmResource::collection($films->distinct()->get()) ;
+
     }
 
     /**
@@ -65,16 +93,10 @@ class FilmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,$id)
+    public function show($id)
     {
-        $film = Film::findOrFail($id);
-//        $director = $film->director()->first();
-//        $film->director  = new DirectorResource($director);
-//        $film->director = new DirectorResource();
-
+        $film = Film::find($id) ;
         return new FilmResource($film);
-//        dd($film);
-//        return $film;
     }
 
     /**
