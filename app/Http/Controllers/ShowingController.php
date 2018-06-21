@@ -1,36 +1,63 @@
 <?php
 
 namespace APICinema\Http\Controllers;
+
 use Illuminate\Http\Request;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
+use APICinema\Http\Resources\Showing as ShowingResource;
+
 
 use APICinema\Showing;
 
 class ShowingController extends Controller
 {
 
-    public function readByDate($date){
-       $showings = DB::table('showing')
-            ->join('cinema', 'showing.id', '=', 'showing.cinema')
-            ->join('language', 'showing.language_showing', '=', 'language.id')
-            ->join('film', 'showing.film', '=', 'film.id')
-            ->select('showing.*', 'cinema.*', 'language.*','film.*')
-            ->where('showing.schedule', $date)->get();
+    public function search($attributes,$param){
 
-        return view('single-film',['showings'=> $showings]);
-    }
+      //dd($attributes." ".$param);
+      //dd($filters->param);
+      $showings = (new Showing)->newQuery();
 
-    public function read(){
-        $showings = DB::table('showing')
-            ->join('cinema', 'showing.id', '=', 'showing.cinema')
-            ->join('language', 'showing.language_showing', '=', 'language.id')
-            ->join('film', 'showing.film', '=', 'film.id')
-            ->select('showing.*', 'cinema.*', 'language.*','film.*')
+      //dd($filters->input());
+      //La version de la séance
+      if ($attributes=='language') {
+          $showings->leftjoin('language','language.id', '=', 'showing.language_showing')
+          ->where('language.languageName', 'LIKE','%'.$param.'%')
+          ->get();
+      }
+
+      //Le titre du film
+      if ($attributes=='title') {
+          $showings->leftjoin('film','film.id', '=', 'showing.film')
+          ->where('film.title', 'LIKE','%'.$param.'%')
+          ->get();
+      }
+
+      //Le nom du cinéma
+      if ($attributes== 'cinemaName') {
+          $showings->leftjoin('cinema','cinema.id', '=', 'showing.cinema')
+          ->where('cinema.cinemaName', 'LIKE','%'.$param.'%')
+          ->get();
+      }
+
+      //Les horaires
+      if ($attributes=='schedule') {
+          $showings
+            ->where('showing.schedule', 'LIKE','%'.$param.'%')
             ->get();
+      }
 
-        return view('single-film',['showings'=> $showings]);
+      //La date
+      if ($attributes=='day') {
+          $showings
+            ->where('showing.day', 'LIKE','%'.$param.'%')
+            ->get();
+      }
+
+      //dd($showings->distinct()->get());
+      //On retourne une colloction d'objet de séance
+      return ShowingResource::collection($showings->distinct()->get());
     }
+
 
     //Pour insérer une séance
     public function insert(Request $request){
@@ -41,7 +68,7 @@ class ShowingController extends Controller
       //$showing->day = ;
       //$showing->cinema = ;
       //$showing->save();
-      //return redirect()->route('/film');
+      //return redirect()->route('/');
     }
 
     //Affiche les séances d'un film ( paramètres issu des inputs par la méthode GET)

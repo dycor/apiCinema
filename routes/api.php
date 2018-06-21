@@ -16,23 +16,16 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//
 Route::apiResource('film', 'FilmController');
 
 //Films routes
 Route::get('/films/{id}','FilmController@show')->name('filmById');
 Route::get('/films','FilmController@search')->name('films');
 
-//Showings routes
-Route::get('/showings/{id}','FilmController@show')->name('showingBydId');
-Route::get('/showings','FilmController@search')->name('showings');
-
-
-Route::get('/showings/add/{showing?}','ShowingController@insert')->name('addShowing');
-Route::get('/showings/readFilm/{film?}','ShowingController@readByFilm')->name('showingByFilm');
-Route::get('/showings/readDate/{date?}','ShowingController@readByDate')->name('showingByDate');
-Route::get('/showings/readLanguage/{language?}','ShowingController@readByLanguage')->name('showingByLanguage');
-Route::get('/showings/readCinema/{date?}','ShowingController@readByCinema')->name('showingByCinema');
-
+//les routes des séances
+Route::get('/showings/{attributes?}/{param?}','ShowingController@search')->name('searchShowing');
 
 
 //Actors routes

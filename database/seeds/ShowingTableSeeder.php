@@ -45,7 +45,31 @@ class ShowingTableSeeder extends Seeder
           'cinema'=> '1',
           'film'=>'2'
 
-        ]]);
+        ],
+        [
+            'id' => 5,
+            'language_showing' => '2',
+            'schedule' => '16:40',
+            'day'=>'2018-06-04',
+            'cinema'=> '1',
+            'film'=>'3'
+          ],
+          [
+              'id' =>6 ,
+              'language_showing' => '1',
+              'schedule' => '14:20',
+              'day'=>'2017-12-12',
+              'cinema'=> '1',
+              'film'=>'1'
+            ],
+            [
+                'id' =>7 ,
+                'language_showing' => '1',
+                'schedule' => '14:20',
+                'day'=>'2017-10-10',
+                'cinema'=> '1',
+                'film'=>'2'
+              ]]);
 
     }
 }

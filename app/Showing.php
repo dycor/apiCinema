@@ -1,10 +1,11 @@
 <?php
 
-
 /**
  * Created by Reliese Model.
- * Date: Sat, 16 Jun 2018 20:19:59 +0000.
+ * Date: Thu, 21 Jun 2018 12:58:33 +0000.
  */
+
+//namespace App\Models;
 namespace APICinema;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
@@ -19,6 +20,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $cinema
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ * @property int $film
  *
  * @property \App\Models\Language $language
  *
@@ -30,7 +32,8 @@ class Showing extends Eloquent
 
 	protected $casts = [
 		'language_showing' => 'int',
-		'cinema' => 'int'
+		'cinema' => 'int',
+		'film' => 'int'
 	];
 
 	protected $dates = [
@@ -42,16 +45,26 @@ class Showing extends Eloquent
 		'language_showing',
 		'schedule',
 		'day',
-		'cinema'
+		'cinema',
+		'film'
 	];
+
+	public function getSchedule(){
+		return $this->schedule->format('Y-m-d H:i:s');
+	}
 
 	public function cinema()
 	{
-		return $this->belongsTo(\APICinema\Cinema::class, 'cinema');
+		return $this->belongsTo(\App\Models\Cinema::class, 'cinema');
+	}
+
+	public function film()
+	{
+		return $this->belongsTo(\App\Models\Film::class, 'film');
 	}
 
 	public function language()
 	{
-		return $this->belongsTo(\APICinema\Language::class, 'language_showing');
+		return $this->belongsTo(\App\Models\Language::class, 'language_showing');
 	}
 }
