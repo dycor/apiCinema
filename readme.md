@@ -11,6 +11,9 @@ This API made with Laravel framework allow you search existing showing of cinema
 - Search information about director , actor or existing film in our data source
 - Add yours own film
 
+## Usage
+
+A documentation has been done with Swagger editor. You can use the representation of the API in swagger.yaml file.
 
 ## Contributing
 
