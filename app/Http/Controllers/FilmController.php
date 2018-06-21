@@ -6,7 +6,12 @@ use Illuminate\Http\Request;
 use APICinema\Http\Resources\Film as FilmResource;
 use APICinema\Http\Resources\Director as DirectorResource;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 90dcd45900f902a7dd87a140a91eb94c9f848fe5
 use APICinema\Film;
+use APICinema\Director;
 
 class FilmController extends Controller
 {
@@ -23,10 +28,6 @@ class FilmController extends Controller
             $films->where('title', 'LIKE','%'.$filters->input('title').'%');
         }
 
-        if ($filters->has('director')) {
-            $films->where('director', $filters->input('director'));
-        }
-
         if ($filters->has('releaseDate')) {
             $films->where('releaseDate', $filters->input('releaseDate'));
         }
@@ -38,7 +39,6 @@ class FilmController extends Controller
         }
 
         if ($filters->has('actorFirstname')) {
-            var_dump('hello');
             $films->join('film_actor', 'film.id', '=', 'film_actor.film');
             $films->join('actor', 'actor.id', '=', 'film_actor.actor');
             $films->where('firstname', 'LIKE','%'.$filters->input('actorFirstname').'%');
@@ -68,9 +68,18 @@ class FilmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+       $directors = Director::all();
+       $values = [];
+
+       foreach($directors as $director){
+           $values[$director->id] = $director->firstname.' '.$director->lastname;
+       }
+
+       //dd($values);
+
+       return view('forms.filmAdd',['values' =>$values]); //appel d'un helper dédié aux vues
     }
 
     /**
@@ -81,7 +90,15 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $film = new Film;
+        $film->title = $request->title;
+        $film->releaseDate = $request->releaseDate;
+        $film->duration = strtotime($request->duration);
+        $film->synopsis = $request->synopsis;
+        $film->director = $request->director;
+        $film->save();
+
+        return redirect()->route('front');
     }
 
     /**
@@ -93,12 +110,7 @@ class FilmController extends Controller
     public function show($id)
     {
         $film = Film::find($id) ;
-
-        //        dd($film);
-//        $film = Film::findOrFail($id);
-//        $director = $film->director()->first();
-//        $film->director  = new DirectorResource($director);
-//        $film->director = new DirectorResource();
+        $film->director_data = $film->director_fk->toArray();
 
         return new FilmResource($film);
 //        dd($film);
@@ -111,9 +123,21 @@ class FilmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, Film $film)
     {
-        //
+        $filmUpdate = Film::where('id', $film->id)
+            ->update([
+                'title'=>$request->input('title'),
+                'releaseDate'=>$request->input('releaseDate'),
+                'duration'=>$request->input('duration'),
+                'synopsis'=>$request->input('synopsis'),
+                'director'=>$request->input('director')
+            ]);
+
+        if ($filmUpdate){
+            return redirect()->route('home');
+        }
+        return back()->withInput();
     }
 
     /**
