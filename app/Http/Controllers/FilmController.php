@@ -3,13 +3,10 @@
 namespace APICinema\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use APICinema\Http\Resources\Film as FilmResource;
 use APICinema\Http\Resources\Director as DirectorResource;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 90dcd45900f902a7dd87a140a91eb94c9f848fe5
 use APICinema\Film;
 use APICinema\Director;
 

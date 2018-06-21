@@ -13,7 +13,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class Film
- * 
+ *
  * @property int $id
  * @property string $title
  * @property \Carbon\Carbon $releaseDate
@@ -22,7 +22,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $director
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property \Illuminate\Database\Eloquent\Collection $categories
  * @property \Illuminate\Database\Eloquent\Collection $actors
  *
@@ -49,7 +49,7 @@ class Film extends Eloquent
 		'director'
 	];
 
-	public function director()
+	public function director_fk()
 	{
 		return $this->belongsTo(\APICinema\Director::class, 'director');
 	}
