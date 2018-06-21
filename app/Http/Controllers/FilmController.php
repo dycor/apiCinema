@@ -4,6 +4,9 @@ namespace APICinema\Http\Controllers;
 
 use Illuminate\Http\Request;
 use APICinema\Http\Resources\Film as FilmResource;
+use APICinema\Http\Resources\Director as DirectorResource;
+
+
 use APICinema\Film;
 use APICinema\Director;
 
@@ -20,10 +23,6 @@ class FilmController extends Controller
 
         if ($filters->has('title')) {
             $films->where('title', 'LIKE','%'.$filters->input('title').'%');
-        }
-
-        if ($filters->has('director')) {
-            $films->where('director', $filters->input('director'));
         }
 
         if ($filters->has('releaseDate')) {
@@ -108,12 +107,7 @@ class FilmController extends Controller
     public function show($id)
     {
         $film = Film::find($id) ;
-
-        //        dd($film);
-//        $film = Film::findOrFail($id);
-//        $director = $film->director()->first();
-//        $film->director  = new DirectorResource($director);
-//        $film->director = new DirectorResource();
+        $film->director_data = $film->director_fk->toArray();
 
         return new FilmResource($film);
 //        dd($film);
