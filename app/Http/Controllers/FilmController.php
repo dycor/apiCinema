@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace APICinema\Http\Controllers;
 
 use Illuminate\Http\Request;
-<<<<<<< HEAD
-=======
 use APICinema\Http\Resources\Film as FilmResource;
->>>>>>> ccee1e89af5e290e0888d4fd1462d74d0b2a9266
 use APICinema\Film;
+use APICinema\Director;
 
 class FilmController extends Controller
 {
@@ -39,7 +37,6 @@ class FilmController extends Controller
         }
 
         if ($filters->has('actorFirstname')) {
-            var_dump('hello');
             $films->join('film_actor', 'film.id', '=', 'film_actor.film');
             $films->join('actor', 'actor.id', '=', 'film_actor.actor');
             $films->where('firstname', 'LIKE','%'.$filters->input('actorFirstname').'%');
@@ -71,14 +68,16 @@ class FilmController extends Controller
      */
     public function create(Request $request)
     {
-        $film = new Film;
-        $film->title = $request->title;
-        $film->releaseDate = $request->releaseDate;
-        $film->duration = $request->duration;
-        $film->synopsis = $request->synopsis;
-        $film->director = $request->director;
+       $directors = Director::all();
+       $values = [];
 
-        return redirect()->route('home');
+       foreach($directors as $director){
+           $values[$director->id] = $director->firstname.' '.$director->lastname;
+       }
+
+       //dd($values);
+
+       return view('forms.filmAdd',['values' =>$values]); //appel d'un helper dédié aux vues
     }
 
     /**
@@ -89,7 +88,15 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $film = new Film;
+        $film->title = $request->title;
+        $film->releaseDate = $request->releaseDate;
+        $film->duration = strtotime($request->duration);
+        $film->synopsis = $request->synopsis;
+        $film->director = $request->director;
+        $film->save();
+
+        return redirect()->route('front');
     }
 
     /**
@@ -121,7 +128,6 @@ class FilmController extends Controller
      */
     public function edit(Request $request, Film $film)
     {
-
         $filmUpdate = Film::where('id', $film->id)
             ->update([
                 'title'=>$request->input('title'),

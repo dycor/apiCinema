@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('front');
 
 Auth::routes();
 
@@ -23,18 +23,17 @@ Route::redirect('/home','/error','404');
 
 
 //Retourner le formulaire de création du film
-Route::get('/films/create', function () {
-    return view('forms.filmAdd'); //appel d'un helper dédié aux vues
-});
+Route::get('/films/create', 'FilmController@create');
+
+  //  return view('forms.filmAdd'); //appel d'un helper dédié aux vues
 
 //Renvoie vers le traitement de création de film
-Route::post('create', 'Film@create')->name('create');
+Route::post('create', 'FilmController@store')->name('create');
 
 //Vue pour y retourner le tableau des films
 Route::get('/films', function () {
     return view('list-film'); //appel d'un helper dédié aux vues
 });
-
 
 //Vue pour les infos d'un film
 Route::get('/film', function () {

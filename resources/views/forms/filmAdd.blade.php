@@ -30,43 +30,20 @@
                 <!-- FORM-->
 
                 <div class="row">
-                    <form class="col s12" method="post" action="{{route('create')}}">
-                        {{csrf_field()}}
-                        {{ config('app.name') }}
-                        <!--<input type="hidden" name="_method" value="post">-->
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <input placeholder="Title" id="title" type="text" class="validate" required>
-                                <label for="title">Title</label>
-                            </div>
-                            <div class="input-field col s6">
-                                <input id="releaseDate" type="date" class="validate" required>
-                                <label for="releaseDate">Release date</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input placeholder="Duration" id="duration" type="time" class="validate" required>
-                                <label for="duration">Duration</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="synopsis" type="text" class="validate">
-                                <label for="synopsis">Synopsis</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="director" type="text" class="validate" required>
-                                <label for="director">Director</label>
-                            </div>
-                        </div>
-                        <input type="submit" value="Submit" class="btn-flat">
-                    </form>
+                        {!! Form::open(['url' => 'create']) !!}
+                        {!! Form::label('title') !!}
+                        {!! Form::text('title') !!}
+                        {!! Form::label('Release date') !!}
+                        {!! Form::date('releaseDate') !!}
+                        {!! Form::label('Duration') !!}
+                        {!! Form::time('duration',null,['step' => '1']) !!}
+                        {!! Form::label('Synopsis') !!}
+                        {!! Form::text('synopsis') !!}
+                        {!! Form::label('Director') !!}
+                        {!! Form::select('director', $values, null, ['class' => 'browser-default'])!!}
+                        {!! Form::submit('Submit') !!}
+                        {!! Form::close() !!}
                 </div>
-
-
             </div>
         </div>
     </body>
