@@ -7,6 +7,7 @@
 
 //namespace App\Models;
 namespace APICinema;
+use Illuminate\Support\Carbon;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -37,7 +38,7 @@ class Showing extends Eloquent
 	];
 
 	protected $dates = [
-		'schedule',
+		'schedule', //=> type time
 		'day'
 	];
 
@@ -49,8 +50,11 @@ class Showing extends Eloquent
 		'film'
 	];
 
+	//A utiliser pour retourner spécifiquement l'horaire de la séance
+	//car dans fillable 'schedule' n'est pas considéré comme une date mais
+	//comme une string
 	public function getSchedule(){
-		return $this->schedule->format('Y-m-d H:i:s');
+		return $this->fillable[1];
 	}
 
 	public function cinema()
@@ -67,4 +71,5 @@ class Showing extends Eloquent
 	{
 		return $this->belongsTo(\App\Models\Language::class, 'language_showing');
 	}
+
 }

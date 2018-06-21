@@ -5,103 +5,53 @@ namespace APICinema\Http\Controllers;
 use Illuminate\Http\Request;
 use APICinema\Http\Resources\Showing as ShowingResource;
 
-
 use APICinema\Showing;
 
 class ShowingController extends Controller
 {
 
-    public function search($attributes,$param){
+    public function search(Request $filters){
 
-      //dd($attributes." ".$param);
-      //dd($filters->param);
       $showings = (new Showing)->newQuery();
 
-      //dd($filters->input());
       //La version de la séance
-      if ($attributes=='language') {
+      if ($filters->has('language')) {
           $showings->leftjoin('language','language.id', '=', 'showing.language_showing')
-          ->where('language.languageName', 'LIKE','%'.$param.'%')
+          ->where('language.languageName', 'LIKE','%'.$filters->input('language').'%')
           ->get();
       }
 
       //Le titre du film
-      if ($attributes=='title') {
+      if ($filters->has('title')) {
           $showings->leftjoin('film','film.id', '=', 'showing.film')
-          ->where('film.title', 'LIKE','%'.$param.'%')
+          ->where('film.title', 'LIKE','%'.$filters->input('title').'%')
           ->get();
       }
 
       //Le nom du cinéma
-      if ($attributes== 'cinemaName') {
+      if ($filters->has('cinemaName')) {
           $showings->leftjoin('cinema','cinema.id', '=', 'showing.cinema')
-          ->where('cinema.cinemaName', 'LIKE','%'.$param.'%')
+          ->where('cinema.cinemaName', 'LIKE','%'.$filters->input('cinemaName').'%')
           ->get();
       }
 
       //Les horaires
-      if ($attributes=='schedule') {
+      if ($filters->has('schedule')) {
           $showings
-            ->where('showing.schedule', 'LIKE','%'.$param.'%')
+            ->where('showing.schedule', 'LIKE','%'.$filters->input('schedule').'%')
             ->get();
       }
 
       //La date
-      if ($attributes=='day') {
+      if ($filters->has('day')) {
           $showings
-            ->where('showing.day', 'LIKE','%'.$param.'%')
+            ->where('showing.day', 'LIKE','%'.$filters->input('day').'%')
             ->get();
       }
-
-      //dd($showings->distinct()->get());
-      //On retourne une colloction d'objet de séance
-      return ShowingResource::collection($showings->distinct()->get());
-    }
-
-
-    //Pour insérer une séance
-    public function insert(Request $request){
-      $showing = new Showing;
-      $showing->language_showing = $request->post_content;
-      //$showing->cinema = ;
-      //$showing->schedule = ;
-      //$showing->day = ;
-      //$showing->cinema = ;
-      //$showing->save();
-      //return redirect()->route('/');
-    }
-
-    //Affiche les séances d'un film ( paramètres issu des inputs par la méthode GET)
-    public function readByFilm(Request $request){
-      //Mettre l'id du cinéma en paramètre
-      $showing = new Showing;
-      return $showing->where('', $request)->get();
+      
+      return ShowingResource::collection($showings->distinct()->get()) ;
 
     }
 
-    //Affiche les séances pour une date ( paramètres issu des inputs par la méthode GET)
-    public function readByDate(Request $request){
-      //Mettre l'horaire en paramètre
-      $showing = new Showing;
-      $showing->where('day', $request)->get();
-      return $showing;
-    }
-
-    //Affiche les seances pour une langue ( paramètres issu des inputs par la méthode GET)
-    public function readByLanguage(Request $request){
-      //Mettre l'horaire en paramètre
-      $showing = new Showing;
-      $showing->where('language_showing', $request)->get();
-      return $showing;
-    }
-
-
-    // Affiche les séances pour un cinema ( paramètres issu des inputs par la méthode GET)
-    public function readByCinema(Request $request){
-      //Mettre l'horaire en paramètre
-      $showing = new Showing;
-      $showing->where('cinema', $request)->get();
-      return $showing;
-    }
 
 }

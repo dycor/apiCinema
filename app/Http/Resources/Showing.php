@@ -1,7 +1,9 @@
 <?php
 
 namespace APICinema\Http\Resources;
+
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
 
 class Showing extends JsonResource
 {
@@ -13,12 +15,12 @@ class Showing extends JsonResource
      */
     public function toArray($request)
     {
-        dd($this);
         return [
           'id'=> $this->id,
           'language'=> $this->language_showing,
-          'schedule' => $this->getSchedule(),
-          'day' => $this->day,
+          'schedule' => $this->getSchedule(),//Retourne le nom de l'attribut
+          //Impossible de retourner l'horaire
+          'day' => $this->day ,
           'cinema' => $this->cinema,
           'film'=> $this->film
         ];
