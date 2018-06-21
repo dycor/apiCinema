@@ -24,8 +24,8 @@ Route::apiResource('film', 'FilmController');
 Route::get('/films/{id}','FilmController@show')->name('filmById');
 Route::get('/films','FilmController@search')->name('films');
 
-//les routes des séances
-Route::get('/showings/{attributes?}/{param?}','ShowingController@search')->name('searchShowing');
+//Showing routes
+Route::get('/showings/{param?}','ShowingController@search')->name('searchShowing');
 
 
 //Actors routes
@@ -36,4 +36,3 @@ Route::get('/actors','ActorController@search')->name('actors');
 //Directors routes
 Route::get('/directors/{id}','DirectorController@show')->name('directorById');
 Route::get('/directors','DirectorController@search')->name('directors');
-
