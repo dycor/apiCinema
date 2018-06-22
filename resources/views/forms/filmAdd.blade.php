@@ -20,8 +20,8 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a class="" href="{{ route('login') }}">Sign in</a>
-                        <a class="" href="{{ route('register') }}">Sign up</a>
+                       <!-- <a class="btn-flat right" href="{{ route('login') }}">Sign in</a>-->
+                       <!-- <a class="btn-flat right" href="{{ route('register') }}">Sign up</a>-->
                     @endauth
                 </div>
             @endif
@@ -41,8 +41,9 @@
                         {!! Form::text('synopsis') !!}
                         {!! Form::label('Director') !!}
                         {!! Form::select('director', $values, null, ['class' => 'browser-default'])!!}
-                        {!! Form::submit('Submit') !!}
+                        {!! Form::submit('Submit',['class' => 'btn text-white indigo right']) !!}
                         {!! Form::close() !!}
+                        <a href="{{route('front')}}"><btn class="btn-flat right">Cancel</btn></a>
                 </div>
             </div>
         </div>
